@@ -14,10 +14,14 @@ layout.
 Bread Chase is a single-player platformer game build using Cinder and the B2 physics library. Hop between platforms, eat\
  bread to boost your score, and shoot down the enemy to win!
  
- ### Controls
+### Hand-drawn graphics
  
- <kbd>Left</kbd> <kbd>Right</kbd> to move
+<img width="150" alt="game2" src="https://user-images.githubusercontent.com/55060753/108287329-49897680-7150-11eb-8a2c-f49964e3a0f3.png"> <img width="150" alt="game3" src="https://user-images.githubusercontent.com/55060753/108287706-d59b9e00-7150-11eb-8905-7ad5c25c8dc8.png"> <img width="150" alt="game2" src="https://user-images.githubusercontent.com/55060753/108287887-2b704600-7151-11eb-99af-66bf39d0a136.png">
  
- <kbd>Up</kbd> to jump
+### Controls
  
- <kbd>F</kbd> to shoot a heart
+<kbd>Left</kbd> <kbd>Right</kbd> to move
+ 
+<kbd>Up</kbd> to jump
+ 
+<kbd>F</kbd> to shoot a heart
