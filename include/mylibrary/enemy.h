@@ -1,5 +1,5 @@
 //
-// Created by Emily on 4/26/2020.
+// Created by Emily Hasson on 4/26/2020.
 //
 
 #ifndef FINALPROJECT_ENEMY_H
