@@ -1,78 +1,78 @@
-// Copyright (c) 2020 [Your Name]. All rights reserved.
+// Copyright (c) 2020 CS126SP20. All rights reserved.
 
-#include "my_app.h"
-#include "cinder/gl/Texture.h"
+#ifndef FINALPROJECT_APPS_MYAPP_H_
+#define FINALPROJECT_APPS_MYAPP_H_
 
 #include <cinder/app/App.h>
-#include <cinder/gl/draw.h>
 #include <mylibrary/map.h>
+#include <mylibrary/bread.h>
+#include <Box2D/Common/b2Math.h>
+#include <Box2D/Dynamics/b2World.h>
+
+#include "cinder/gl/Texture.h"
+#include "mylibrary/bread.h"
+#include "mylibrary/engine.h"
+#include "mylibrary/enemy.h"
+#include "mylibrary/avatar.h"
 
 namespace myapp {
 
-using cinder::app::KeyEvent;
-ci::gl::Texture2dRef bread_texture;
-int map_grid[20][25];
-Map map;
+const int kTileSize = 45;
 
-MyApp::MyApp() { }
+enum class GameState {
+  kPlaying,
+  kLose,
+  kWin,
+};
 
-void MyApp::setup() {
-  auto bread_image = loadImage( loadAsset( "Bread.png" ) );
-  bread_texture = ci::gl::Texture2d::create(bread_image);
-}
+class MyApp : public cinder::app::App {
+ public:
+  MyApp();
+  void setup() override;
+  void update() override;
+  void draw() override;
+  void keyDown(cinder::app::KeyEvent) override;
+  void LoadMap(Map map);
+  void DrawMap();
+  void DrawEnemy();
+  void DrawHeart();
+  void DrawEnemyHeart();
+  void SetAvatarPolygon(b2World world);
+  bool IsUnderFoot(float x1, float y1);
+  void DrawHealth();
+  void MyApp::DrawScore();
+  void PrintText(const std::string& text, const cinder::ivec2& size,
+                 const cinder::vec2& loc);
+  bool BreadEaten(int col);
+  void DrawGameOver();
+  void CreateB2Box(b2World world, float x, float y, float size);
 
-void MyApp::update() { }
+ private:
+  b2Vec2 gravity;
+  GameState state_;
+  std::vector<int> eaten_breads;
+  bool on_platform;
+  Enemy enemy;
+  Engine engine_;
+  Avatar avatar;
+  std::chrono::time_point<std::chrono::system_clock> last_time_;
+  std::chrono::time_point<std::chrono::system_clock> last_shoot_time_;
 
-void LoadMap() {
-  for (int row = 0; row < 20; row++) {
-    for (int col = 0; col < 25; col++) {
-      map_grid[row][col] = map.GetMapArrayValue(row, col);
-    }
-  }
-}
+  //  const int kSpeed = 50;
+  const int kSpeed = 100;
+  const int kShootTime = 5;
+  float underfoot_x1 = 100;
+  float underfoot_x2 = 130;
+  float underfoot_y = 18;
+  int score = 0;
+  const int kBreadPoints = 3;
+  const int kPoisonPoints = 5;
+  const int kMagicBreadPoints = 10;
+  const int kHitEnemyPoints = 2;
+  const int kKillEnemyPoints = 5;
 
-void DrawMap() {
-  LoadMap();
-  float x = 0;
-  float y = 0;
-
-  for (int row = 0; row < 20; row++) {
-
-    for (int col = 0; col < 25; col++) {
-      ci::Rectf location(x, y, col * kTileSize, row * kTileSize);
-
-      if (map_grid[row][col] == 0) {
-        ci::gl::Texture2dRef ground = map.GetGroundTexture();
-        ci::gl::draw(ground, location);
-      }
-
-      if (map_grid[row][col] == 1) {
-        ci::gl::Texture2dRef platform = map.GetPlatformTexture();
-        ci::gl::draw(platform, location);
-      }
-
-      if (map_grid[row][col] == 2) {
-        ci::gl::Texture2dRef sky = map.GetSkyTexture();
-        ci::gl::draw(sky, location);
-      }
-    }
-  }
-}
-
-ci::gl::Texture2dRef MyApp::CreateTexture(std::string filepath) {
-  auto image = loadImage( loadAsset( filepath ) );
-  ci::gl::Texture2dRef texture = ci::gl::Texture2d::create(image);
-  return texture;
-}
-
-void MyApp::draw() {
-  ci::Rectf rectangle(100, 150, 200, 250);
-
-  ci::gl::draw(bread_texture, rectangle);
-
-  DrawMap();
-}
-
-void MyApp::keyDown(KeyEvent event) { }
+};
 
 }  // namespace myapp
+
+#endif  // FINALPROJECT_APPS_MYAPP_H_
