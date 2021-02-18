@@ -9,7 +9,7 @@ layout.
 **Author**: Emily Hasson - [`ehasson2@illinois.edu`](mailto:example@illinois.edu)
 ## About
 Bread Chase is a single-player platformer game build using Cinder and the B2 physics library. Hop between platforms, eat\
- bread to boost your score, and shoot down the enemy!
+ bread to boost your score, and shoot down the enemy to win!
  
  ### Controls
  
