@@ -21,6 +21,6 @@ Bread Chase is a single-player platformer game build using Cinder and the B2 phy
  
 <kbd>Left</kbd> <kbd>Right</kbd> to move
  
-<kbd>Up</kbd> to jump
+<kbd>Space</kbd> to jump
  
 <kbd>F</kbd> to shoot a heart
